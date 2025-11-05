@@ -1,0 +1,50 @@
+services:
+  mt-ecommerce-db:
+    image: postgres:alpine
+    hostname: mt_commerce_db
+    container_name: mt_ecommerce_db
+    environment:
+      POSTGRES_PASSWORD: mt_ecommerce_password
+      POSTGRES_USER: mt_ecommerce_user
+      POSTGRES_DB: mt_ecommerce_db
+      TZ: America/Sao_Paulo
+      PGTZ: America/Sao_Paulo
+    restart: always
+    ports:
+      - "5433:5432"
+    networks:
+      - mt-ecommerce
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mt_ecommerce_user -d mt_ecommerce_db"]
+      interval: 5s
+      timeout: 2s
+      retries: 20
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4444:4444"
+    stdin_open: true
+    tty: true # Keeps the container running for debugging
+    depends_on:
+      mt-ecommerce-db:
+        condition: service_healthy
+    env_file:
+      - .env
+    networks:
+      - mt-ecommerce
+
+    volumes:
+      # Sincroniza tudo
+      - .:/usr/src/app
+
+      # Mas ignora o node_modules local
+      - /usr/src/app/node_modules
+
+    command: sh -c "pnpm db:deploy && pnpm db:seed && pnpm start:dev"
+
+networks:
+  mt-ecommerce:
+    name: mt-ecommerce
