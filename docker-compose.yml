@@ -40,8 +40,11 @@ services:
       # Sincroniza tudo
       - .:/usr/src/app
 
-      # Mas ignora o node_modules local
+      # Protege a node_modules local
       - /usr/src/app/node_modules
+
+      # Protege o store local do pnpm
+      - /usr/src/app/.pnpm-store
 
     command: sh -c "pnpm db:deploy && pnpm db:seed && pnpm start:dev"
 
