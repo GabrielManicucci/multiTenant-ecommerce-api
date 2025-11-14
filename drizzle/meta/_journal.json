@@ -8,6 +8,20 @@
       "when": 1762369667697,
       "tag": "0000_steady_blue_shield",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1762705410465,
+      "tag": "0001_even_nick_fury",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1762706377282,
+      "tag": "0002_steady_longshot",
+      "breakpoints": true
     }
   ]
 }

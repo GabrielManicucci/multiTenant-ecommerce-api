@@ -6,8 +6,9 @@ export const userTable = pgTable("user", {
     .primaryKey()
     .$defaultFn(() => uuidV4()),
   name: varchar({ length: 255 }).notNull(),
-  age: integer().notNull(),
+  age: integer(),
   email: varchar({ length: 255 }).notNull().unique(),
+  password: varchar().notNull(),
   role_id: varchar().references(() => roleTable.role_id, {
     onDelete: "set null",
   }),

@@ -8,7 +8,7 @@
     "start:dev": "tsx watch src/server.ts",
     "start:prod": "node build/server.js",
     "build": "tsup src --out-dir build",
-    "db:deploy": "drizzle-kit generate && drizzle-kit migrate",
+    "db:deploy": "drizzle-kit migrate",
     "db:seed": "tsx src/db/seed.ts"
   },
   "keywords": [],

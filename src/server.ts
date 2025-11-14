@@ -8,5 +8,5 @@ app.listen({ port: env.PORT, host: "0.0.0.0" }, (error: Error | null) => {
     process.exit(1);
   }
 
-  console.log("http server running in http://localhost:4444");
+  console.log(`http server running in http://localhost:${env.PORT}`);
 });
